@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SVT — Cours 208</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#080b12; --card:#0f1420; --card2:#161d2e; --border:#1e2a40;
+  --text:#dde6f8; --muted:#4a5570;
+  --accent:#22c55e; --rgb:34,197,94;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;min-height:100vh;}
+
+/* ── BANDEAU STICKY ── */
+.bandeau{
+  position:sticky;top:0;z-index:100;
+  background:rgba(8,11,18,.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:10px 20px;
+}
+.bandeau::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),transparent);opacity:.6;
+}
+.bandeau-inner{
+  max-width:900px;margin:0 auto;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.back-btn{
+  display:inline-flex;align-items:center;gap:6px;padding:7px 14px;
+  background:rgba(var(--rgb),.1);border:1px solid rgba(var(--rgb),.3);
+  border-radius:8px;color:var(--accent);text-decoration:none;
+  font-size:.75rem;font-weight:700;transition:all .15s;flex-shrink:0;
+  font-family:'Sora',sans-serif;
+}
+.back-btn:hover{background:rgba(var(--rgb),.2);}
+.bandeau-right{display:flex;align-items:center;gap:14px;margin-left:auto;flex-wrap:wrap;}
+.clock{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;letter-spacing:2px;}
+.date-info{display:flex;flex-direction:column;align-items:flex-end;gap:1px;}
+.date-jour{font-size:.78rem;font-weight:700;}
+.date-complet{font-size:.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.sem-bloc{display:flex;flex-direction:column;align-items:center;gap:1px;}
+.sem-lab{font-size:.5rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
+.sem-b{font-size:1.1rem;font-weight:800;padding:3px 11px;border-radius:7px;font-family:'JetBrains Mono',monospace;line-height:1;}
+.sem-n{font-size:.5rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+
+/* ── HERO MATIÈRE ── */
+.hero{
+  padding:32px 20px 28px;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 120% at 50% -10%,rgba(var(--rgb),.1),transparent 70%);
+}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;}
+.hero-top{
+  font-size:.6rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(var(--rgb),.7);font-family:'JetBrains Mono',monospace;margin-bottom:16px;
+}
+.hero-row{display:flex;align-items:center;gap:20px;}
+.hero-emoji{
+  font-size:4rem;line-height:1;flex-shrink:0;
+  filter:drop-shadow(0 0 24px rgba(var(--rgb),.5));
+}
+.hero-nom-wrap{}
+.hero-niveau{
+  display:inline-block;font-size:.65rem;font-weight:800;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--accent);font-family:'JetBrains Mono',monospace;
+  background:rgba(var(--rgb),.12);border:1px solid rgba(var(--rgb),.3);
+  padding:3px 10px;border-radius:20px;margin-bottom:8px;
+}
+.hero-nom{
+  font-size:clamp(2rem,6vw,3rem);font-weight:800;letter-spacing:-2px;
+  color:var(--accent);line-height:1;
+  text-shadow:0 0 60px rgba(var(--rgb),.4);
+}
+.hero-desc{font-size:.82rem;color:var(--muted);margin-top:6px;}
+
+/* ── CONTENU ── */
+main{max-width:900px;margin:0 auto;padding:28px 20px 80px;}
+
+.section-lbl{
+  font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;
+  color:var(--muted);margin:0 0 16px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ── CARTES SÉQUENCES ── */
+.seq-list{display:flex;flex-direction:column;gap:10px;}
+
+.seq-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:16px 18px;cursor:pointer;
+  display:flex;align-items:center;gap:14px;transition:all .2s;
+}
+.seq-card:hover{
+  border-color:var(--accent);
+  background:var(--card2);
+  transform:translateX(5px);
+  box-shadow:0 6px 28px rgba(var(--rgb),.15);
+}
+.seq-num{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  background:rgba(var(--rgb),.1);border:1px solid rgba(var(--rgb),.35);
+  color:var(--accent);display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;
+}
+.seq-info{flex:1;min-width:0;}
+.seq-titre{font-size:.9rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.seq-sous{font-size:.7rem;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.seq-arrow{
+  color:var(--muted);font-size:.9rem;width:28px;height:28px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:6px;transition:all .2s;flex-shrink:0;
+}
+.seq-card:hover .seq-arrow{color:var(--accent);background:rgba(var(--rgb),.12);}
+
+/* ── PAGE COURS ── */
+.cours-back{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 16px;background:var(--card2);border:1px solid var(--border);
+  border-radius:8px;color:var(--text);font-size:.8rem;font-weight:600;
+  cursor:pointer;margin-bottom:22px;transition:all .15s;font-family:'Sora',sans-serif;
+}
+.cours-back:hover{background:var(--border);}
+.cours-titre{font-size:1.5rem;font-weight:800;letter-spacing:-.8px;margin-bottom:6px;}
+.cours-meta{
+  font-size:.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace;
+  margin-bottom:24px;padding-left:14px;border-left:3px solid var(--accent);
+}
+.cours-content{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:28px;line-height:1.9;font-size:.9rem;
+  border-top:3px solid var(--accent);
+}
+.cours-content h2{font-size:1.05rem;font-weight:800;margin:26px 0 10px;color:var(--accent);letter-spacing:-.2px;}
+.cours-content h2:first-child{margin-top:0;}
+.cours-content h3{font-size:.92rem;font-weight:700;margin:18px 0 7px;color:var(--text);}
+.cours-content p{margin-bottom:12px;color:#bbc8e0;}
+.cours-content ul,
+.cours-content ol{margin:0 0 14px 22px;color:#bbc8e0;}
+.cours-content li{margin-bottom:5px;line-height:1.6;}
+.cours-content strong{color:var(--text);}
+.cours-content em{color:var(--accent);font-style:normal;font-weight:600;}
+.cours-content hr{border:none;border-top:1px solid var(--border);margin:22px 0;}
+.cours-content blockquote{
+  border-left:3px solid var(--accent);padding:10px 16px;
+  background:rgba(var(--rgb),.06);border-radius:0 8px 8px 0;
+  margin:14px 0;color:#bbc8e0;font-style:italic;
+}
+
+/* ── PAGES ── */
+.page{display:none;}
+.page.active{display:block;animation:pageIn .3s ease;}
+@keyframes pageIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.stagger>*{animation:fadeUp .35s both;}
+.stagger>*:nth-child(1){animation-delay:.03s;}.stagger>*:nth-child(2){animation-delay:.07s;}
+.stagger>*:nth-child(3){animation-delay:.11s;}.stagger>*:nth-child(4){animation-delay:.15s;}
+.stagger>*:nth-child(5){animation-delay:.19s;}.stagger>*:nth-child(6){animation-delay:.23s;}
+.stagger>*:nth-child(7){animation-delay:.27s;}.stagger>*:nth-child(8){animation-delay:.31s;}
+.stagger>*:nth-child(9){animation-delay:.35s;}.stagger>*:nth-child(10){animation-delay:.39s;}
+
+.footer{
+  text-align:center;padding:18px;font-size:.65rem;color:var(--muted);
+  font-family:'JetBrains Mono',monospace;border-top:1px solid var(--border);margin-top:20px;
+}
+
+@media(max-width:600px){
+  .hero-nom{font-size:2rem;}
+  .bandeau-right{margin-left:0;}
+  .date-info{align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── BANDEAU STICKY ── -->
+<div class="bandeau">
+  <div class="bandeau-inner">
+    <a href="index.html" class="back-btn">← Accueil</a>
+    <div class="bandeau-right">
+      <div class="clock" id="clock">--:--</div>
+      <div class="date-info">
+        <div class="date-jour" id="jour">—</div>
+        <div class="date-complet" id="date-complet">— — ——</div>
+      </div>
+      <div class="sem-bloc">
+        <div class="sem-lab">Semaine</div>
+        <div class="sem-b" id="sem-b">—</div>
+        <div class="sem-n" id="sem-n">n°—</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">Lycée Albert Calmette &nbsp;·&nbsp; 2025 / 2026</div>
+    <div class="hero-row">
+      <div class="hero-emoji">🌿</div>
+      <div class="hero-nom-wrap">
+        
+        <div class="hero-nom">SVT</div>
+        <div class="hero-desc">Biologie, géologie et sciences de la vie</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- PAGE LISTE DES SÉQUENCES -->
+  <div id="page-liste" class="page active">
+    <div class="section-lbl">Séquences &amp; parties</div>
+    <div id="seq-list" class="seq-list stagger"></div>
+  </div>
+
+  <!-- PAGE COURS -->
+  <div id="page-cours" class="page">
+    <button class="cours-back" onclick="retour()">← Retour aux séquences</button>
+    <div class="cours-titre" id="cours-titre">—</div>
+    <div class="cours-meta" id="cours-meta">—</div>
+    <div class="cours-content" id="cours-contenu"></div>
+  </div>
+
+</main>
+
+<div class="footer">Talco Inc · 2026 · Anton Joyeux · v.6.1</div>
+
+<script>
+// ╔══════════════════════════════════════════════════════════╗
+// ║  ✏️  TES COURS — modifie uniquement ce tableau           ║
+// ╠══════════════════════════════════════════════════════════╣
+// ║                                                          ║
+// ║  Ajouter une SÉQUENCE :                                  ║
+// ║  { titre:"Séquence X — Titre",                          ║
+// ║     parties:[                                            ║
+// ║       { titre:"Partie 1", contenu:`...` },             ║
+// ║     ]                                                    ║
+// ║  },                                                     ║
+// ║                                                          ║
+// ║  Ajouter une PARTIE dans une séquence :                  ║
+// ║  { titre:"Partie X", contenu:`...` },                  ║
+// ║                                                          ║
+// ║  Balises utilisables dans contenu :                      ║
+// ║    <h2>Titre principal</h2>                              ║
+// ║    <h3>Sous-titre</h3>                                   ║
+// ║    <p>Paragraphe</p>                                     ║
+// ║    <ul><li>item</li></ul>                                ║
+// ║    <ol><li>item</li></ol>                                ║
+// ║    <strong>gras</strong>                                 ║
+// ║    <em>couleur accent</em>                               ║
+// ║    <blockquote>citation</blockquote>                     ║
+// ║    <hr> (séparateur)                                     ║
+// ╚══════════════════════════════════════════════════════════╝
+
+const SEQUENCES = [
+
+  // ✏️ ── SÉQUENCE 1 ─────────────────────────────────────────
+  {
+    titre: "Séquence 1 — Titre à remplir",
+    parties: [
+      {
+        titre: "Partie 1 — Titre",
+        contenu: `
+          <h2>Introduction</h2>
+          <p>✏️ <strong>Remplace ce texte par ton cours.</strong></p>
+          <p>Exemple de liste :</p>
+          <ul>
+            <li>Point 1</li>
+            <li>Point 2</li>
+          </ul>
+          <h3>Sous-partie</h3>
+          <p>Suite du cours ici.</p>
+        `
+      },
+      {
+        titre: "Partie 2 — Titre",
+        contenu: `
+          <h2>Titre</h2>
+          <p>✏️ Ton cours ici.</p>
+        `
+      },
+    ]
+  },
+
+  // ✏️ ── SÉQUENCE 2 ─────────────────────────────────────────
+  {
+    titre: "Séquence 2 — Titre à remplir",
+    parties: [
+      {
+        titre: "Partie 1 — Titre",
+        contenu: `
+          <h2>Titre</h2>
+          <p>✏️ Ton cours ici.</p>
+        `
+      },
+    ]
+  },
+
+];
+
+
+// ── Horloge ────────────────────────────────────────────────
+function getSem(d) {
+  const dt = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  const day = dt.getUTCDay() || 7;
+  dt.setUTCDate(dt.getUTCDate() + 4 - day);
+  const y = new Date(Date.UTC(dt.getUTCFullYear(), 0, 1));
+  return Math.ceil((((dt - y) / 86400000) + 1) / 7);
+}
+
+function tick() {
+  const d = new Date();
+  document.getElementById('clock').textContent =
+    String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+  const jours = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const mois  = ['janvier','février','mars','avril','mai','juin','juillet','août',
+                  'septembre','octobre','novembre','décembre'];
+  document.getElementById('jour').textContent = jours[d.getDay()];
+  document.getElementById('date-complet').textContent =
+    d.getDate() + ' ' + mois[d.getMonth()] + ' ' + d.getFullYear();
+  const n = getSem(d);
+  const s = n % 2 === 1 ? 'A' : 'B';
+  const b = document.getElementById('sem-b');
+  document.getElementById('sem-n').textContent = 'n°' + n;
+  b.textContent = s;
+  b.style.background = s === 'A' ? 'rgba(79,142,247,.2)' : 'rgba(62,207,142,.2)';
+  b.style.color       = s === 'A' ? '#4f8ef7'             : '#3ecf8e';
+}
+
+// ── Rendu liste ────────────────────────────────────────────
+function render() {
+  const c = document.getElementById('seq-list');
+  c.innerHTML = '';
+  SEQUENCES.forEach((seq, si) => {
+    seq.parties.forEach((p, pi) => {
+      const div = document.createElement('div');
+      div.className = 'seq-card';
+      div.innerHTML = `
+        <div class="seq-num">${si+1}.${pi+1}</div>
+        <div class="seq-info">
+          <div class="seq-titre">${p.titre}</div>
+          <div class="seq-sous">${seq.titre}</div>
+        </div>
+        <div class="seq-arrow">→</div>`;
+      div.onclick = () => ouvrir(si, pi);
+      c.appendChild(div);
+    });
+  });
+  c.classList.remove('stagger');
+  void c.offsetWidth;
+  c.classList.add('stagger');
+}
+
+function ouvrir(si, pi) {
+  const seq = SEQUENCES[si], p = seq.parties[pi];
+  document.getElementById('cours-titre').textContent = p.titre;
+  document.getElementById('cours-meta').textContent  = '🌿 SVT · ' + seq.titre;
+  document.getElementById('cours-contenu').innerHTML = p.contenu;
+  document.getElementById('page-liste').classList.remove('active');
+  document.getElementById('page-cours').classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function retour() {
+  document.getElementById('page-cours').classList.remove('active');
+  document.getElementById('page-liste').classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  tick();
+  setInterval(tick, 10000);
+  render();
+});
+</script>
+</body>
+</html>
