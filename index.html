@@ -187,7 +187,7 @@ main{max-width:900px;margin:0 auto;padding:28px 20px 80px;}
 <!-- ── BANDEAU STICKY ── -->
 <div class="bandeau">
   <div class="bandeau-inner">
-    <a href="index.html" class="back-btn">← Accueil</a>
+    <a href="https://natlacaxi.github.io/base-cours-208/" class="back-btn">← Accueil</a>
     <div class="bandeau-right">
       <div class="clock" id="clock">--:--</div>
       <div class="date-info">
@@ -586,7 +586,7 @@ function tick() {
   document.getElementById('date-complet').textContent =
     d.getDate() + ' ' + mois[d.getMonth()] + ' ' + d.getFullYear();
   const n = getSem(d);
-  const s = n % 2 === 1 ? 'A' : 'B';
+  const s = n % 2 === 0 ? 'A' : 'B'; // sem.paire=A, sem.impaire=B (ex: sem.12=A, sem.13=B)
   const b = document.getElementById('sem-b');
   document.getElementById('sem-n').textContent = 'n°' + n;
   b.textContent = s;
