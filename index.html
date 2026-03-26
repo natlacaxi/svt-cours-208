@@ -187,7 +187,7 @@ main{max-width:900px;margin:0 auto;padding:28px 20px 80px;}
 <!-- ── BANDEAU STICKY ── -->
 <div class="bandeau">
   <div class="bandeau-inner">
-    <a href="https://natlacaxi.github.io/base-cours-208/" class="back-btn">← Accueil</a>
+    <a href="index.html" class="back-btn">← Accueil</a>
     <div class="bandeau-right">
       <div class="clock" id="clock">--:--</div>
       <div class="date-info">
@@ -488,11 +488,11 @@ const SEQUENCES = [
 
 <h2>I. LES ORGANES GÉNITAUX ET LEUR FONCTIONNEMENT (Rappels)</h2>
 
-<h3>A) La puberté</h3>
+<h3><u>A) La puberté</h3></u>
 
 <p>C'est l'ensemble des transformations physiques et psychologiques qui accompagnent la mise en fonctionnement des appareils reproducteurs (production d'ovules ou de spermatozoïdes), permettant d'acquérir la capacité de se reproduire.</p>
 
-<h3>B) Les organes reproducteurs masculins</h3>
+<h3><u>B) Les organes reproducteurs masculins</h3></u>
 
 <p>De la puberté jusqu'à la mort, un homme produit des spermatozoïdes (cellules reproductrices ou gamètes mâles) dans ses testicules.</p>
 
@@ -502,7 +502,7 @@ const SEQUENCES = [
 
 <p>Schéma de l'appareil génital masculin de profil</p>
 
-<h3>C) Les organes reproducteurs féminins</h3>
+<h3><u>C) Les organes reproducteurs féminins</h3></u>
 
 <p>De la puberté jusqu'à la ménopause, l'appareil génital féminin fonctionne selon un cycle de 30 jours (en moyenne), appelé le cycle menstruel.</p>
 
@@ -526,7 +526,7 @@ const SEQUENCES = [
 
 <p>Schéma de l'appareil génital féminin de profil</p>
 
-<h3>D) De la fécondation à la naissance</h3>
+<h3><u>D) De la fécondation à la naissance</h3></u>
 
 <h4>1) De la fécondation à la nidation</h4>
 
@@ -547,6 +547,18 @@ const SEQUENCES = [
 <p>Les 7 mois suivants sont caractérisés par la croissance du fœtus.</p>
 
 <p>Durant toute la grossesse, les besoins de l'embryon/foetus sont assurés par la mère : le placenta filtre le sang de la mère pour apporter à l'embryon/foetus, via le cordon ombilical, du sang riche en O2 et en nutriments, et reçoit en échange le sang riche en déchets.</p>
+
+<h3><u>E) Hormones et fonctionnement des appareils géniaux</h3></u>
+
+<p>Chez l'homme et le femme, le fonctionnement de l'appareil reproducteur dépend d'un ensemble de communications nerveuses et hormonale.</p>
+
+<p>En effet, les neurones de l'hypothalamus (une zone du cerveau) produisent des GnRH, une neurohormone, qui va stimuler (=activer) l'hyphophye (une glande située juste-en dessous). Celle-ci produit alors les hormones LH et FSH.</p>
+
+<p>Chez l'homme, LH et FSH vont stimuler les testicules, les amenant a produire des spermatozoïdeset une hormone la testostérone. La testostérone va d'une part stimuler la production de spermatozoïdes, d'autre part elle va contrôler l'hypothalamus et l'hyphophyse.</p>
+
+<p>Chez la femme, LH et FSH vont stimuler les ovaires, qui vont produire plusieurs hormones : oestrogènes et progestérone. Ces hormones ocntroent d'une part l'utérus, d'autre soart le complexe hypothalamo-hypophysaire. Chez la femme, ele productions d'hormones varient dans le temps,ce qui explique les fonctionnements cycliques de ovaires et de l'utérus.</p>
+ 
+
         `
       },
     ]
@@ -586,7 +598,7 @@ function tick() {
   document.getElementById('date-complet').textContent =
     d.getDate() + ' ' + mois[d.getMonth()] + ' ' + d.getFullYear();
   const n = getSem(d);
-  const s = n % 2 === 0 ? 'A' : 'B'; // sem.paire=A, sem.impaire=B (ex: sem.12=A, sem.13=B)
+  const s = n % 2 === 1 ? 'A' : 'B';
   const b = document.getElementById('sem-b');
   document.getElementById('sem-n').textContent = 'n°' + n;
   b.textContent = s;
